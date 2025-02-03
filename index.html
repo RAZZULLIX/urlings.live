@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>urlings – never browse alone again!</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Comic Sans MS", "Comic Sans", cursive;
+        }
+
+        /* Previous styles remain the same, updating font-family references */
+        body {
+            background: linear-gradient(135deg, #c4e0ff, #e8f4ff);
+            color: #333;
+            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%2399CC00" d="M7,2l12,11.2l-5.8,0.5l3.3,7.3l-2.2,1l-3.2-7.4L7,18.5V2"/></svg>') 0 0, auto;
+        }
+
+        header {
+            background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.7));
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid rgba(255,255,255,0.5);
+            box-shadow: 0 2px 20px rgba(153,204,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .logo {
+            font-size: 28px;
+            letter-spacing: 2px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            text-transform: lowercase;
+        }
+
+        .logo span:nth-child(1) { color: #ff0000; }
+        .logo span:nth-child(2) { color: #00ff00; }
+        .logo span:nth-child(3) { color: #0000ff; }
+        .logo span:nth-child(4) { color: #ffa700; }
+        .logo span:nth-child(5) { color: #ff6600; }
+        .logo span:nth-child(6) { color: #00ffff; }
+        .logo span:nth-child(7) { color: #ff00ff; }
+
+        .logo span {
+            margin: 0 1px;
+        }
+
+        nav a {
+            font-weight: bold;
+            color: #0088cc;
+            text-decoration: none;
+            margin-left: 20px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.5);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.8);
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: rgba(153,204,0,0.2);
+            box-shadow: 0 0 15px rgba(153,204,0,0.3);
+            transform: translateY(-2px);
+            color: #006600;
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 30vh;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.9), rgba(153,204,0,0.1));
+            text-align: center;
+            padding: 50px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(153,204,0,0.1)" stroke-width="1"/></svg>') repeat;
+            animation: bg-scroll 60s linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes bg-scroll {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .hero-content {
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 
+                0 10px 30px rgba(0,162,255,0.2),
+                inset 0 0 20px rgba(153,204,0,0.1);
+            border: 2px solid rgba(255,255,255,0.9);
+            max-width: 600px;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #0088cc, #99CC00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: lowercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #99CC00, #66CC00);
+            border: none;
+            color: white;
+            font-size: 18px;
+            padding: 15px 30px;
+            cursor: pointer;
+            border-radius: 25px;
+            font-weight: bold;
+            text-transform: lowercase;
+            box-shadow: 
+                0 5px 15px rgba(153,204,0,0.3),
+                inset 0 0 10px rgba(255,255,255,0.5);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 8px 20px rgba(153,204,0,0.4),
+                inset 0 0 15px rgba(255,255,255,0.6);
+            background: linear-gradient(45deg, #66CC00, #99CC00);
+        }
+
+        .features {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            position: relative;
+        }
+
+        .feature-item {
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 30px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 
+                0 10px 30px rgba(0,162,255,0.15),
+                inset 0 0 20px rgba(153,204,0,0.1);
+            border: 2px solid rgba(255,255,255,0.9);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 15px 40px rgba(153,204,0,0.2),
+                inset 0 0 25px rgba(153,204,0,0.2);
+            background: rgba(255,255,255,0.9);
+        }
+
+        .feature-item h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #0088cc, #99CC00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 0.5px;
+        }
+
+        .install {
+            padding: 60px 20px;
+            text-align: center;
+            border-top: 2px solid rgba(255,255,255,0.5);
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            margin-top: 40px;
+        }
+
+        .install-button {
+            background: linear-gradient(45deg, #0088cc, #006699);
+            border: none;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px;
+            box-shadow: 
+                0 5px 15px rgba(0,162,255,0.3),
+                inset 0 0 10px rgba(255,255,255,0.5);
+            transition: all 0.3s ease;
+            text-transform: lowercase;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .install-button:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(45deg, #99CC00, #66CC00);
+            box-shadow: 
+                0 8px 20px rgba(153,204,0,0.4),
+                inset 0 0 15px rgba(255,255,255,0.6);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+            backdrop-filter: blur(10px);
+            border-top: 2px solid rgba(255,255,255,0.5);
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 14px;
+            color: #0088cc;
+            margin: 5px 0;
+            text-transform: lowercase;
+        }
+
+        /* Add letter-spacing to all text for better Comic Sans readability */
+        p, button, a {
+            letter-spacing: 0.3px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+
+            .feature-item {
+                width: 100%;
+                margin: 10px 20px;
+            }
+
+            .install {
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+
+<!-- The rest of the HTML remains exactly the same as before -->
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="logo">
+            <span>u</span><span>r</span><span>l</span><span>i</span><span>n</span><span>g</span><span>s</span>
+        </div>
+        <nav>
+            <a href="#features">Features</a>
+            <a href="#install">Install</a>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>"never browse alone again!"</h1>
+            <p>Welcome to <strong>urlings</strong>, the browser extension that instantly connects you to anyone on the
+                exact same URL.<br>
+                No accounts, no logs—just real-time conversation with users from all over the world!</p>
+				<p><br></p>
+            <button class="cta-button"
+                onclick="document.getElementById('install').scrollIntoView({behavior:'smooth'});">Install Now</button>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+        <div class="feature-item">
+            <h2>Per-URL Channels</h2>
+            <p>Hop into a chat channel based on your current page—no room codes needed.</p>
+        </div>
+        <div class="feature-item">
+            <h2>Anonymous Messages</h2>
+            <p>Share your thoughts freely, anywhere online!</p>
+        </div>
+        <div class="feature-item">
+            <h2>Zero Setup</h2>
+            <p>Install the extension, open any site, click the icon, and start chatting instantly.</p>
+        </div>
+    </section>
+
+    <!-- INSTALL / INFO -->
+    <section class="install" id="install">
+        <h2>Get Started in 2 Steps</h2>
+        <p>1. Add the <strong>urlings</strong> extension to your browser.<br />
+            2. Visit any page, open urlings, chat away!</p>
+        <button class="install-button" onclick="alert('Coming soon on the Chrome Web Store. Stay tuned!')">Install from
+            Web Store</button>
+        <button class="install-button"
+            onclick="alert('Manual Load Instructions:\n1. Download the extension folder.\n2. Go to chrome://extensions\n3. Enable Developer Mode.\n4. Load Unpacked.\n5. Select the folder.\nThat's it!')">Manual
+            Load</button>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© <span id="year"></span> urlings</p>
+        <p>Built with love</p>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
