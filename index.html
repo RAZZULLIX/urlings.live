@@ -193,6 +193,20 @@
             letter-spacing: 0.5px;
         }
 
+        /* Screenshot Section */
+        .screenshot {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .screenshot img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid rgba(255,255,255,0.9);
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,162,255,0.15), inset 0 0 20px rgba(153,204,0,0.1);
+        }
+
         .install {
             padding: 60px 20px;
             text-align: center;
@@ -269,8 +283,6 @@
         }
     </style>
 </head>
-
-<!-- The rest of the HTML remains exactly the same as before -->
 <body>
     <!-- HEADER -->
     <header>
@@ -290,9 +302,8 @@
             <p>Welcome to <strong>urlings</strong>, the browser extension that instantly connects you to anyone on the
                 exact same URL.<br>
                 No accounts, no logs—just real-time conversation with users from all over the world!</p>
-				<p><br></p>
-            <button class="cta-button"
-                onclick="document.getElementById('install').scrollIntoView({behavior:'smooth'});">Install Now</button>
+            <p><br></p>
+            <button class="cta-button" onclick="window.location.href='https://chromewebstore.google.com/detail/urlings/pjceoeifafgnaggbfjfdkgbnnllkkkcf'">Install Now</button>
         </div>
     </section>
 
@@ -312,16 +323,18 @@
         </div>
     </section>
 
+    <!-- SCREENSHOT SECTION -->
+    <section class="screenshot" id="screenshot">
+        <!-- Replace "path/to/screenshot.png" with the actual path to your 1280x800 screenshot -->
+        <img src="screenshot.png" alt="Screenshot of urlings" width="1280" height="800">
+    </section>
+
     <!-- INSTALL / INFO -->
     <section class="install" id="install">
         <h2>Get Started in 2 Steps</h2>
         <p>1. Add the <strong>urlings</strong> extension to your browser.<br />
             2. Visit any page, open urlings, chat away!</p>
-        <button class="install-button" onclick="alert('Coming soon on the Chrome Web Store. Stay tuned!')">Install from
-            Web Store</button>
-        <button class="install-button"
-            onclick="alert('Manual Load Instructions:\n1. Download the extension folder.\n2. Go to chrome://extensions\n3. Enable Developer Mode.\n4. Load Unpacked.\n5. Select the folder.\nThat's it!')">Manual
-            Load</button>
+        <button class="install-button" onclick="window.location.href='https://chromewebstore.google.com/detail/urlings/pjceoeifafgnaggbfjfdkgbnnllkkkcf'">Install from Chrome Web Store</button>
     </section>
 
     <!-- FOOTER -->
